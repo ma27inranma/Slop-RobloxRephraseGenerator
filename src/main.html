@@ -40,6 +40,17 @@
 			border: solid 1px;
 			padding: 5px;
 		}
+
+		.divider-large {
+			height: 2px;
+			margin: 10px 0;
+			border-radius: 12px;
+			background-color: #dddddd;
+		}
+
+		.add-message input {
+			display: block;
+		}
 		/* ~controls */
 
 		/* chat window */
@@ -158,6 +169,20 @@
 				<p>Rephrased</p>
 				<input type="text" id="inputRephrased" placeholder="hahahahaha lol" value="hahahahaha lol" onchange="setRephrased()">
 			</div>
+
+			<div class="divider-large"></div>
+
+			<div class="add-message">
+				<p>Add message</p>
+
+				<div class="divider"></div>
+
+				<p>User</p>
+				<input type="text" id="inputAddMessageUsername">
+				<p>Message</p>
+				<input type="text" id="inputAddMessage">
+				<button onclick="addMessage()">Add</button>
+			</div>
 		</div>
 
 		<div class="roblox-chat-wrapper">
@@ -210,6 +235,16 @@
 			rephraseBlock.before(line);
 
 			document.getElementById('originalText').textContent = original;
+		}
+
+		function addMessage() {
+			const addingMessage = document.getElementById('inputAddMessage').value.trim();
+			const addingMessageUsername = document.getElementById('inputAddMessageUsername').value.trim();
+
+			const line = document.createElement('div');
+			line.className = 'chat-line';
+			line.innerHTML = `${addingMessageUsername.length !== 0 ? `<span class="username">${addingMessageUsername}</span>: ` : ''}${addingMessage}`;
+			rephraseBlock.before(line);
 		}
 	</script>
 </body>
