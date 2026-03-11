@@ -15,6 +15,7 @@
 			background: #a2a2a2;
 			display: flex;
 			min-height: 100vh;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
 		}
 
 		.push-right {
@@ -88,7 +89,6 @@
 
 		.chat-line .username {
 			color: #fff;
-			font-weight: 600;
 		}
 		/* ~messages */
 
@@ -153,6 +153,8 @@
 		}
 		/* ~input */
 	</style>
+
+	<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -191,9 +193,6 @@
 					<div class="chat-line">
 						<!-- <span class="username">aaaa:</span> Hello World -->
 						Only people in similar age groups and your Trusted Connections can chat with you.
-					</div>
-					<div class="chat-line">
-						<span class="username">ma27inranma:</span> hahahahaha lol
 					</div>
 	
 					<div class="rephrase-block" id="rephraseBlock">
@@ -245,6 +244,16 @@
 			line.className = 'chat-line';
 			line.innerHTML = `${addingMessageUsername.length !== 0 ? `<span class="username">${addingMessageUsername}</span>: ` : ''}${addingMessage}`;
 			rephraseBlock.before(line);
+		}
+
+		async function downloadScreenshot() {
+			const shot = await html2canvas(document.querySelector(".roblox-chat"), {backgroundColor: null});
+			const url = shot.toDataURL('image/png');
+
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = 'robloxRephrased.png';
+			link.click();
 		}
 	</script>
 </body>
